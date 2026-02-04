@@ -1,5 +1,7 @@
 # ComfyUI-AceMusic
 
+**English** | **[日本語](README_ja.md)**
+
 Multilingual AI music generation nodes for ComfyUI powered by [ACE-Step 1.5](https://github.com/ace-step/ACE-Step). Generate full songs with lyrics in 19 languages including English, Chinese, Japanese, Korean, and more.
 
 ![Workflow Preview](assets/workflow_preview.png)
