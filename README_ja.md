@@ -1,10 +1,18 @@
 # ComfyUI-AceMusic
 
-**[English](README.md)** | **日本語**
+**[English](README.md)** | **日本語** | **[简体中文](README_zh-CN.md)** | **[繁體中文](README_zh-TW.md)** | **[한국어](README_ko.md)** | **[Tiếng Việt](README_vi.md)**
 
 [ACE-Step 1.5](https://github.com/ace-step/ACE-Step)を使用したComfyUI向け多言語AI音楽生成ノード。日本語、英語、中国語、韓国語など19言語で歌詞付きの楽曲を生成できます。
 
 ![ワークフロープレビュー](assets/workflow_preview.png)
+
+---
+
+**このプロジェクトが役に立ったら、Starをお願いします！**
+
+[![GitHub stars](https://img.shields.io/github/stars/hiroki-abe-58/ComfyUI-AceMusic?style=social)](https://github.com/hiroki-abe-58/ComfyUI-AceMusic)
+
+---
 
 ## ハイライト
 
