@@ -25,9 +25,9 @@ __all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS"]
 
 # Version info
 __version__ = "1.0.0"
-__author__ = "YOUR_USERNAME"
+__author__ = "hiroki-abe-58"
 __description__ = "ACE-Step 1.5 music generation nodes for ComfyUI"
-__url__ = "https://github.com/YOUR_USERNAME/ComfyUI-AceMusic"
+__url__ = "https://github.com/hiroki-abe-58/ComfyUI-AceMusic"
 
 # Web extension (if needed in future)
 WEB_DIRECTORY = None

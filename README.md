@@ -44,7 +44,7 @@ Search for "ComfyUI-AceMusic" and install.
 
 ```bash
 cd ComfyUI/custom_nodes
-git clone https://github.com/YOUR_USERNAME/ComfyUI-AceMusic.git
+git clone https://github.com/hiroki-abe-58/ComfyUI-AceMusic.git
 cd ComfyUI-AceMusic
 pip install -r requirements.txt
 ```

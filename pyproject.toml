@@ -46,8 +46,8 @@ dev = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/YOUR_USERNAME/ComfyUI-AceMusic"
-"Bug Tracker" = "https://github.com/YOUR_USERNAME/ComfyUI-AceMusic/issues"
+"Homepage" = "https://github.com/hiroki-abe-58/ComfyUI-AceMusic"
+"Bug Tracker" = "https://github.com/hiroki-abe-58/ComfyUI-AceMusic/issues"
 "ACE-Step" = "https://github.com/ace-step/ACE-Step"
 "Hugging Face" = "https://huggingface.co/ACE-Step"
 
