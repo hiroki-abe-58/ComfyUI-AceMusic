@@ -6,6 +6,14 @@ Multilingual AI music generation nodes for ComfyUI powered by [ACE-Step 1.5](htt
 
 ![Workflow Preview](assets/workflow_preview.png)
 
+## Highlights
+
+- **First Full-Featured ACE-Step Integration for ComfyUI** - Complete implementation of all ACE-Step 1.5 capabilities as ComfyUI nodes (15 nodes total)
+- **Modular Architecture** - Separated Settings/Lyrics/Caption nodes eliminate widget ordering issues and improve workflow readability
+- **Cross-Platform Compatibility** - Works on Windows with Python 3.13+ by using soundfile/scipy instead of problematic torchaudio backends
+- **HeartMuLa Interoperability** - Seamlessly chain with HeartMuLa nodes for hybrid AI music workflows
+- **Production-Ready** - Robust input validation with automatic fallbacks prevents runtime errors
+
 ## Features
 
 - **Multilingual Lyrics** - Generate music with vocals in 19 languages (English, Chinese, Japanese, Korean, Spanish, etc.)
