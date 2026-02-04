@@ -1,0 +1,208 @@
+{
+  "last_node_id": 9,
+  "last_link_id": 8,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "AceMusicModelLoader",
+      "pos": {"0": 50, "1": 50},
+      "size": {"0": 320, "1": 150},
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "ACEMUSIC_MODEL",
+          "links": [1],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {"Node name for S&R": "AceMusicModelLoader"},
+      "widgets_values": ["cuda", false, false, false]
+    },
+    {
+      "id": 2,
+      "type": "AceMusicSettings",
+      "pos": {"0": 50, "1": 250},
+      "size": {"0": 320, "1": 310},
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "settings",
+          "type": "ACEMUSIC_SETTINGS",
+          "links": [2],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {"Node name for S&R": "AceMusicSettings"},
+      "widgets_values": [30.0, "ja", 120, "4/4", "", false, 27, 15.0, -1]
+    },
+    {
+      "id": 3,
+      "type": "AceMusicLyricsInput",
+      "pos": {"0": 420, "1": 50},
+      "size": {"0": 400, "1": 220},
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "lyrics",
+          "type": "STRING",
+          "links": [3],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {"Node name for S&R": "AceMusicLyricsInput"},
+      "widgets_values": ["[Verse]\nKimi no koe ga kikoeru\nTooi sora no mukou kara\n\n[Chorus]\nHikari no naka de\nFutari aruite yukou\nKono michi wo\n\n[Outro]\n(Instrumental)"]
+    },
+    {
+      "id": 4,
+      "type": "AceMusicCaptionInput",
+      "pos": {"0": 420, "1": 310},
+      "size": {"0": 400, "1": 100},
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "caption",
+          "type": "STRING",
+          "links": [4],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {"Node name for S&R": "AceMusicCaptionInput"},
+      "widgets_values": ["J-pop, female vocal, bright synthesizer, catchy melody, energetic, uplifting mood"]
+    },
+    {
+      "id": 5,
+      "type": "AceMusicGenerator",
+      "pos": {"0": 870, "1": 100},
+      "size": {"0": 280, "1": 130},
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "ACEMUSIC_MODEL",
+          "link": 1,
+          "slot_index": 0
+        },
+        {
+          "name": "caption",
+          "type": "STRING",
+          "link": 4,
+          "slot_index": 1
+        },
+        {
+          "name": "lyrics",
+          "type": "STRING",
+          "link": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "settings",
+          "type": "ACEMUSIC_SETTINGS",
+          "link": 2,
+          "slot_index": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [5, 6],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
+      "properties": {"Node name for S&R": "AceMusicGenerator"},
+      "widgets_values": []
+    },
+    {
+      "id": 6,
+      "type": "PreviewAudio",
+      "pos": {"0": 1200, "1": 50},
+      "size": {"0": 320, "1": 80},
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 5,
+          "slot_index": 0
+        }
+      ],
+      "outputs": [],
+      "properties": {"Node name for S&R": "PreviewAudio"},
+      "widgets_values": []
+    },
+    {
+      "id": 7,
+      "type": "SaveAudio",
+      "pos": {"0": 1200, "1": 180},
+      "size": {"0": 320, "1": 120},
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 6,
+          "slot_index": 0
+        }
+      ],
+      "outputs": [],
+      "properties": {"Node name for S&R": "SaveAudio"},
+      "widgets_values": ["acemusic/output", "wav"]
+    },
+    {
+      "id": 8,
+      "type": "Note",
+      "pos": {"0": 870, "1": 280},
+      "size": {"0": 650, "1": 150},
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": ["AceMusic Lyrics Workflow v3\n\n1. AceMusicLyricsInput: 歌詞を入力 ([Verse], [Chorus]タグ使用)\n2. AceMusicCaptionInput: 音楽スタイルを入力\n3. AceMusicSettings: duration, vocal_language等を設定\n4. Queue Promptで実行"],
+      "color": "#432",
+      "bgcolor": "#653"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 5, 0, "ACEMUSIC_MODEL"],
+    [2, 2, 0, 5, 3, "ACEMUSIC_SETTINGS"],
+    [3, 3, 0, 5, 2, "STRING"],
+    [4, 4, 0, 5, 1, "STRING"],
+    [5, 5, 0, 6, 0, "AUDIO"],
+    [6, 5, 0, 7, 0, "AUDIO"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.0,
+      "offset": [0, 0]
+    }
+  },
+  "version": 0.4
+}

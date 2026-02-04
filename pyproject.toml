@@ -1,0 +1,68 @@
+[project]
+name = "comfyui-acemusic"
+version = "1.0.0"
+description = "ACE-Step 1.5 music generation nodes for ComfyUI"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "ComfyUI-AceMusic Contributors" }
+]
+keywords = [
+    "comfyui",
+    "ai",
+    "music",
+    "generation",
+    "ace-step",
+    "audio",
+    "text2music",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "torch>=2.0.0",
+    "torchaudio",
+    "soundfile",
+    "numpy",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "black",
+    "isort",
+    "flake8",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/YOUR_USERNAME/ComfyUI-AceMusic"
+"Bug Tracker" = "https://github.com/YOUR_USERNAME/ComfyUI-AceMusic/issues"
+"ACE-Step" = "https://github.com/ace-step/ACE-Step"
+"Hugging Face" = "https://huggingface.co/ACE-Step"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
