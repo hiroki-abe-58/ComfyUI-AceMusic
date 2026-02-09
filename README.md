@@ -184,6 +184,33 @@ The AUDIO type is compatible with HeartMuLa outputs:
 
 ## Troubleshooting
 
+### ACE-Step installation fails (dependency version errors)
+
+If you see errors like `No matching distribution found for torchaudio==2.10.0+cu128` or `matplotlib==3.10.1`, the ACE-Step repository has strict version requirements that may not be available for your Python version or platform.
+
+**Solution: Clone and modify ACE-Step locally**
+
+```bash
+# Clone ACE-Step repository
+git clone https://github.com/ace-step/ACE-Step.git
+cd ACE-Step
+
+# Edit requirements.txt to relax version constraints
+# Change exact versions (==) to minimum versions (>=)
+# Example: matplotlib==3.10.1 -> matplotlib>=3.8.0
+
+# Install with relaxed requirements
+pip install -e .
+```
+
+**Alternative: Install dependencies manually first**
+
+```bash
+pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu121
+pip install transformers diffusers accelerate soundfile librosa
+pip install git+https://github.com/ace-step/ACE-Step.git --no-deps
+```
+
 ### Models not loading / Download fails
 - Check your internet connection
 - Verify Hugging Face access
@@ -208,6 +235,19 @@ The AUDIO type is compatible with HeartMuLa outputs:
 ### Windows-specific issues
 - For `torchaudio` errors, ensure `soundfile` is installed: `pip install soundfile`
 - For torch.compile, install triton: `pip install triton-windows`
+
+## Roadmap / Planned Features
+
+The following ACE-Step 1.5 features are not yet implemented but planned for future releases:
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| Track Separation (Stems) | Planned | Separate audio into vocal/instrumental tracks |
+| Multi-Track Generation | Planned | Layer generation like Suno Studio "Add Layer" |
+| Vocal2BGM | Planned | Auto-accompaniment from vocals |
+| LRC Generation | Planned | Timestamped lyric alignment |
+
+Contributions and PRs are welcome! See [Issues](https://github.com/hiroki-abe-58/ComfyUI-AceMusic/issues) for discussion.
 
 ## Requirements
 

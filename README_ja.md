@@ -184,6 +184,33 @@ AUDIO型はHeartMuLaの出力と互換性があります：
 
 ## トラブルシューティング
 
+### ACE-Stepのインストールが失敗する（依存関係バージョンエラー）
+
+`No matching distribution found for torchaudio==2.10.0+cu128` や `matplotlib==3.10.1` などのエラーが表示される場合、ACE-Stepリポジトリの厳密なバージョン要件がお使いのPythonバージョンやプラットフォームで利用できない可能性があります。
+
+**解決策: ACE-Stepをローカルにクローンして修正**
+
+```bash
+# ACE-Stepリポジトリをクローン
+git clone https://github.com/ace-step/ACE-Step.git
+cd ACE-Step
+
+# requirements.txtを編集してバージョン制約を緩和
+# 完全一致(==)を最小バージョン(>=)に変更
+# 例: matplotlib==3.10.1 -> matplotlib>=3.8.0
+
+# 緩和した要件でインストール
+pip install -e .
+```
+
+**代替案: 依存関係を先に手動インストール**
+
+```bash
+pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu121
+pip install transformers diffusers accelerate soundfile librosa
+pip install git+https://github.com/ace-step/ACE-Step.git --no-deps
+```
+
 ### モデルがロードされない / ダウンロード失敗
 - インターネット接続を確認
 - Hugging Faceへのアクセスを確認
@@ -208,6 +235,19 @@ AUDIO型はHeartMuLaの出力と互換性があります：
 ### Windows固有の問題
 - `torchaudio`エラーの場合、`soundfile`をインストール：`pip install soundfile`
 - torch.compileにはtritonをインストール：`pip install triton-windows`
+
+## ロードマップ / 計画中の機能
+
+以下のACE-Step 1.5機能は未実装ですが、将来のリリースで追加予定です：
+
+| 機能 | ステータス | 説明 |
+|------|------------|------|
+| Track Separation (Stems) | 計画中 | オーディオをボーカル/インストゥルメンタルトラックに分離 |
+| Multi-Track Generation | 計画中 | Suno Studioの「Add Layer」のようなレイヤー生成 |
+| Vocal2BGM | 計画中 | ボーカルからの自動伴奏生成 |
+| LRC Generation | 計画中 | タイムスタンプ付き歌詞アライメント |
+
+コントリビューションとPRを歓迎します！議論は[Issues](https://github.com/hiroki-abe-58/ComfyUI-AceMusic/issues)をご覧ください。
 
 ## 要件
 
