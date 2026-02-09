@@ -2,7 +2,7 @@
 
 **[English](README.md)** | **[日本語](README_ja.md)** | **[简体中文](README_zh-CN.md)** | **繁體中文** | **[한국어](README_ko.md)** | **[Tiếng Việt](README_vi.md)**
 
-基於 [ACE-Step 1.5](https://github.com/ace-step/ACE-Step) 的 ComfyUI 多語言 AI 音樂生成節點。支援19種語言生成帶歌詞的完整歌曲，包括中文、英語、日語、韓語等。
+基於 [ACE-Step](https://github.com/ace-step/ACE-Step) 的 ComfyUI 多語言 AI 音樂生成節點。支援19種語言生成帶歌詞的完整歌曲，包括中文、英語、日語、韓語等。
 
 ![工作流程預覽](assets/workflow_preview.png)
 
@@ -16,7 +16,7 @@
 
 ## 亮點
 
-- **全球首個 ComfyUI 完整 ACE-Step 整合** - 將 ACE-Step 1.5 的所有功能完整實現為 ComfyUI 節點（共15個節點）
+- **全球首個 ComfyUI 完整 ACE-Step 整合** - 將 ACE-Step 的所有功能完整實現為 ComfyUI 節點（共15個節點）
 - **模組化架構** - 分離 Settings/Lyrics/Caption 節點，消除元件順序問題，提升工作流程可讀性
 - **跨平台相容** - 使用 soundfile/scipy 取代有問題的 torchaudio 後端，支援 Windows + Python 3.13+
 - **HeartMuLa 互操作** - 與 HeartMuLa 節點無縫銜接，實現混合 AI 音樂工作流程
@@ -67,7 +67,7 @@ cd ComfyUI-AceMusic
 pip install -r requirements.txt
 ```
 
-### 安裝 ACE-Step 1.5
+### 安裝 ACE-Step
 
 ```bash
 pip install git+https://github.com/ace-step/ACE-Step.git

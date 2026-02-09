@@ -2,7 +2,7 @@
 
 **[English](README.md)** | **[日本語](README_ja.md)** | **[简体中文](README_zh-CN.md)** | **[繁體中文](README_zh-TW.md)** | **한국어** | **[Tiếng Việt](README_vi.md)**
 
-[ACE-Step 1.5](https://github.com/ace-step/ACE-Step) 기반 ComfyUI용 다국어 AI 음악 생성 노드. 한국어, 영어, 중국어, 일본어 등 19개 언어로 가사가 있는 완전한 노래를 생성할 수 있습니다.
+[ACE-Step](https://github.com/ace-step/ACE-Step) 기반 ComfyUI용 다국어 AI 음악 생성 노드. 한국어, 영어, 중국어, 일본어 등 19개 언어로 가사가 있는 완전한 노래를 생성할 수 있습니다.
 
 ![워크플로우 미리보기](assets/workflow_preview.png)
 
@@ -16,7 +16,7 @@
 
 ## 하이라이트
 
-- **세계 최초 ComfyUI용 완전한 ACE-Step 통합** - ACE-Step 1.5의 모든 기능을 ComfyUI 노드로 완전 구현 (총 15개 노드)
+- **세계 최초 ComfyUI용 완전한 ACE-Step 통합** - ACE-Step의 모든 기능을 ComfyUI 노드로 완전 구현 (총 15개 노드)
 - **모듈식 아키텍처** - Settings/Lyrics/Caption 노드를 분리하여 위젯 순서 문제 해결 및 워크플로우 가독성 향상
 - **크로스 플랫폼 호환** - 문제가 있는 torchaudio 백엔드 대신 soundfile/scipy 사용으로 Windows + Python 3.13+ 지원
 - **HeartMuLa 상호 운용** - HeartMuLa 노드와 원활하게 연결하여 하이브리드 AI 음악 워크플로우 구현
@@ -67,7 +67,7 @@ cd ComfyUI-AceMusic
 pip install -r requirements.txt
 ```
 
-### ACE-Step 1.5 설치
+### ACE-Step 설치
 
 ```bash
 pip install git+https://github.com/ace-step/ACE-Step.git

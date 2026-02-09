@@ -2,7 +2,7 @@
 
 **English** | **[日本語](README_ja.md)** | **[简体中文](README_zh-CN.md)** | **[繁體中文](README_zh-TW.md)** | **[한국어](README_ko.md)** | **[Tiếng Việt](README_vi.md)**
 
-Multilingual AI music generation nodes for ComfyUI powered by [ACE-Step 1.5](https://github.com/ace-step/ACE-Step). Generate full songs with lyrics in 19 languages including English, Chinese, Japanese, Korean, and more.
+Multilingual AI music generation nodes for ComfyUI powered by [ACE-Step](https://github.com/ace-step/ACE-Step). Generate full songs with lyrics in 19 languages including English, Chinese, Japanese, Korean, and more.
 
 ![Workflow Preview](assets/workflow_preview.png)
 
@@ -16,7 +16,7 @@ Multilingual AI music generation nodes for ComfyUI powered by [ACE-Step 1.5](htt
 
 ## Highlights
 
-- **First Full-Featured ACE-Step Integration for ComfyUI** - Complete implementation of all ACE-Step 1.5 capabilities as ComfyUI nodes (15 nodes total)
+- **First Full-Featured ACE-Step Integration for ComfyUI** - Complete implementation of all ACE-Step capabilities as ComfyUI nodes (15 nodes total)
 - **Modular Architecture** - Separated Settings/Lyrics/Caption nodes eliminate widget ordering issues and improve workflow readability
 - **Cross-Platform Compatibility** - Works on Windows with Python 3.13+ by using soundfile/scipy instead of problematic torchaudio backends
 - **HeartMuLa Interoperability** - Seamlessly chain with HeartMuLa nodes for hybrid AI music workflows
@@ -67,7 +67,7 @@ cd ComfyUI-AceMusic
 pip install -r requirements.txt
 ```
 
-### Install ACE-Step 1.5
+### Install ACE-Step
 
 ```bash
 pip install git+https://github.com/ace-step/ACE-Step.git
@@ -238,7 +238,7 @@ pip install git+https://github.com/ace-step/ACE-Step.git --no-deps
 
 ## Roadmap / Planned Features
 
-The following ACE-Step 1.5 features are not yet implemented but planned for future releases:
+The following ACE-Step features are not yet implemented but planned for future releases:
 
 | Feature | Status | Description |
 |---------|--------|-------------|
@@ -254,7 +254,7 @@ Contributions and PRs are welcome! See [Issues](https://github.com/hiroki-abe-58
 - Python >= 3.10
 - PyTorch >= 2.0.0
 - ComfyUI
-- ACE-Step 1.5
+- ACE-Step
 
 ## License
 

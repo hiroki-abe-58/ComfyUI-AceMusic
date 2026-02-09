@@ -1,5 +1,5 @@
 """
-ComfyUI Nodes for AceMusic (ACE-Step 1.5)
+ComfyUI Nodes for AceMusic (ACE-Step)
 Implements nodes for music generation, cover creation, repainting, and analysis.
 """
 

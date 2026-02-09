@@ -1,5 +1,5 @@
 """
-ACE-Step 1.5 API Handler for ComfyUI
+ACE-Step API Handler for ComfyUI
 Wraps the ACE-Step inference API for use in ComfyUI nodes.
 """
 
@@ -51,7 +51,7 @@ class AceMusicModel:
 
 class AceMusicHandler:
     """
-    Handler class that wraps ACE-Step 1.5 API for ComfyUI integration.
+    Handler class that wraps ACE-Step API for ComfyUI integration.
     """
     
     _instance = None
@@ -115,7 +115,7 @@ class AceMusicHandler:
         """
         if not ACESTEP_AVAILABLE:
             raise ImportError(
-                "ACE-Step 1.5 is not installed. Please install it first:\n"
+                "ACE-Step is not installed. Please install it first:\n"
                 "pip install git+https://github.com/ace-step/ACE-Step.git\n"
                 "or clone from: https://github.com/ace-step/ACE-Step"
             )
@@ -190,7 +190,7 @@ class AceMusicHandler:
             Tuple of (audio_tensor, sample_rate)
         """
         if not ACESTEP_AVAILABLE:
-            raise ImportError("ACE-Step 1.5 is not installed")
+            raise ImportError("ACE-Step is not installed")
         
         # Build prompt with metadata
         prompt_parts = [caption]
@@ -269,7 +269,7 @@ class AceMusicHandler:
             Tuple of (audio_tensor, sample_rate)
         """
         if not ACESTEP_AVAILABLE:
-            raise ImportError("ACE-Step 1.5 is not installed")
+            raise ImportError("ACE-Step is not installed")
         
         manual_seeds = None if seed < 0 else [seed]
         
@@ -335,7 +335,7 @@ class AceMusicHandler:
             Tuple of (audio_tensor, sample_rate)
         """
         if not ACESTEP_AVAILABLE:
-            raise ImportError("ACE-Step 1.5 is not installed")
+            raise ImportError("ACE-Step is not installed")
         
         manual_seeds = None if seed < 0 else [seed]
         
@@ -399,7 +399,7 @@ class AceMusicHandler:
             Tuple of (audio_tensor, sample_rate)
         """
         if not ACESTEP_AVAILABLE:
-            raise ImportError("ACE-Step 1.5 is not installed")
+            raise ImportError("ACE-Step is not installed")
         
         manual_seeds = None if seed < 0 else [seed]
         
@@ -474,7 +474,7 @@ class AceMusicHandler:
             Tuple of (audio_tensor, sample_rate)
         """
         if not ACESTEP_AVAILABLE:
-            raise ImportError("ACE-Step 1.5 is not installed")
+            raise ImportError("ACE-Step is not installed")
         
         manual_seeds = None if seed < 0 else [seed]
         
@@ -538,7 +538,7 @@ class AceMusicHandler:
             Tuple of (audio_tensor, sample_rate)
         """
         if not ACESTEP_AVAILABLE:
-            raise ImportError("ACE-Step 1.5 is not installed")
+            raise ImportError("ACE-Step is not installed")
         
         manual_seeds = None if seed < 0 else [seed]
         
@@ -594,7 +594,7 @@ class AceMusicHandler:
             Dictionary with caption, lyrics, bpm, keyscale, duration, language
         """
         if not ACESTEP_AVAILABLE:
-            raise ImportError("ACE-Step 1.5 is not installed")
+            raise ImportError("ACE-Step is not installed")
         
         # Load audio to get duration
         waveform, sample_rate = load_audio_sf(audio_path)
@@ -641,7 +641,7 @@ class AceMusicHandler:
             Dictionary with caption, lyrics, bpm, keyscale, duration, language, instrumental
         """
         if not ACESTEP_AVAILABLE:
-            raise ImportError("ACE-Step 1.5 is not installed")
+            raise ImportError("ACE-Step is not installed")
         
         # Try to use create_sample API if available
         try:

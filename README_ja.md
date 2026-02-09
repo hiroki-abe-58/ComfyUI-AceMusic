@@ -2,7 +2,7 @@
 
 **[English](README.md)** | **日本語** | **[简体中文](README_zh-CN.md)** | **[繁體中文](README_zh-TW.md)** | **[한국어](README_ko.md)** | **[Tiếng Việt](README_vi.md)**
 
-[ACE-Step 1.5](https://github.com/ace-step/ACE-Step)を使用したComfyUI向け多言語AI音楽生成ノード。日本語、英語、中国語、韓国語など19言語で歌詞付きの楽曲を生成できます。
+[ACE-Step](https://github.com/ace-step/ACE-Step)を使用したComfyUI向け多言語AI音楽生成ノード。日本語、英語、中国語、韓国語など19言語で歌詞付きの楽曲を生成できます。
 
 ![ワークフロープレビュー](assets/workflow_preview.png)
 
@@ -16,7 +16,7 @@
 
 ## ハイライト
 
-- **ComfyUI向けACE-Step完全統合は世界初** - ACE-Step 1.5の全機能をComfyUIノードとして完全実装（15ノード）
+- **ComfyUI向けACE-Step完全統合は世界初** - ACE-Stepの全機能をComfyUIノードとして完全実装（15ノード）
 - **モジュラーアーキテクチャ** - Settings/Lyrics/Captionノードを分離することでウィジェット順序問題を解消し、ワークフローの可読性を向上
 - **クロスプラットフォーム対応** - torchaudioの問題をsoundfile/scipyで回避し、Windows + Python 3.13+で動作
 - **HeartMuLa相互運用** - HeartMuLaノードとシームレスに連携し、ハイブリッドAI音楽ワークフローを実現
@@ -67,7 +67,7 @@ cd ComfyUI-AceMusic
 pip install -r requirements.txt
 ```
 
-### ACE-Step 1.5のインストール
+### ACE-Stepのインストール
 
 ```bash
 pip install git+https://github.com/ace-step/ACE-Step.git
@@ -238,7 +238,7 @@ pip install git+https://github.com/ace-step/ACE-Step.git --no-deps
 
 ## ロードマップ / 計画中の機能
 
-以下のACE-Step 1.5機能は未実装ですが、将来のリリースで追加予定です：
+以下のACE-Step機能は未実装ですが、将来のリリースで追加予定です：
 
 | 機能 | ステータス | 説明 |
 |------|------------|------|
@@ -254,7 +254,7 @@ pip install git+https://github.com/ace-step/ACE-Step.git --no-deps
 - Python >= 3.10
 - PyTorch >= 2.0.0
 - ComfyUI
-- ACE-Step 1.5
+- ACE-Step
 
 ## ライセンス
 

@@ -2,7 +2,7 @@
 
 **[English](README.md)** | **[日本語](README_ja.md)** | **[简体中文](README_zh-CN.md)** | **[繁體中文](README_zh-TW.md)** | **[한국어](README_ko.md)** | **Tiếng Việt**
 
-Các node tạo nhạc AI đa ngôn ngữ cho ComfyUI dựa trên [ACE-Step 1.5](https://github.com/ace-step/ACE-Step). Tạo các bài hát hoàn chỉnh có lời bằng 19 ngôn ngữ bao gồm tiếng Việt, tiếng Anh, tiếng Trung, tiếng Nhật, tiếng Hàn và nhiều ngôn ngữ khác.
+Các node tạo nhạc AI đa ngôn ngữ cho ComfyUI dựa trên [ACE-Step](https://github.com/ace-step/ACE-Step). Tạo các bài hát hoàn chỉnh có lời bằng 19 ngôn ngữ bao gồm tiếng Việt, tiếng Anh, tiếng Trung, tiếng Nhật, tiếng Hàn và nhiều ngôn ngữ khác.
 
 ![Xem trước Workflow](assets/workflow_preview.png)
 
@@ -16,7 +16,7 @@ Các node tạo nhạc AI đa ngôn ngữ cho ComfyUI dựa trên [ACE-Step 1.5]
 
 ## Điểm nổi bật
 
-- **Tích hợp ACE-Step đầy đủ đầu tiên trên thế giới cho ComfyUI** - Triển khai hoàn chỉnh tất cả tính năng ACE-Step 1.5 dưới dạng node ComfyUI (tổng cộng 15 node)
+- **Tích hợp ACE-Step đầy đủ đầu tiên trên thế giới cho ComfyUI** - Triển khai hoàn chỉnh tất cả tính năng ACE-Step dưới dạng node ComfyUI (tổng cộng 15 node)
 - **Kiến trúc module** - Tách biệt các node Settings/Lyrics/Caption, loại bỏ vấn đề thứ tự widget và cải thiện khả năng đọc workflow
 - **Tương thích đa nền tảng** - Hoạt động trên Windows với Python 3.13+ bằng cách sử dụng soundfile/scipy thay vì backend torchaudio có vấn đề
 - **Tương tác với HeartMuLa** - Kết nối liền mạch với các node HeartMuLa cho workflow nhạc AI kết hợp
@@ -67,7 +67,7 @@ cd ComfyUI-AceMusic
 pip install -r requirements.txt
 ```
 
-### Cài đặt ACE-Step 1.5
+### Cài đặt ACE-Step
 
 ```bash
 pip install git+https://github.com/ace-step/ACE-Step.git
