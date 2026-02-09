@@ -49,8 +49,10 @@ Multilingual AI music generation nodes for ComfyUI powered by [ACE-Step](https:/
 | **Conditioning** | Combine parameters into conditioning object |
 | **Generator (from Cond)** | Generate from conditioning object |
 | **Load LoRA** | Load fine-tuned LoRA adapters |
-| **Understand** | Extract metadata from existing audio |
-| **Create Sample** | Generate parameters from natural language query |
+| **Understand** | Measure audio duration (caption/BPM/key are placeholders*) |
+| **Create Sample** | Generate parameters via keyword heuristics* |
+
+> \* Full AI-powered audio analysis and parameter generation require a future ACE-Step version. Current implementation provides accurate duration measurement and keyword-based inference as placeholders.
 
 ## Installation
 

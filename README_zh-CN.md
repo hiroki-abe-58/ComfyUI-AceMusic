@@ -49,8 +49,10 @@
 | **Conditioning** | 将参数组合为 Conditioning 对象 |
 | **Generator (from Cond)** | 从 Conditioning 对象生成 |
 | **Load LoRA** | 加载微调的 LoRA 适配器 |
-| **Understand** | 从现有音频提取元数据 |
-| **Create Sample** | 从自然语言查询生成参数 |
+| **Understand** | 测量音频时长（标题/BPM/调号为占位符*） |
+| **Create Sample** | 通过关键词启发式生成参数* |
+
+> \* AI 驱动的音频分析和参数生成需要未来的 ACE-Step 版本。当前实现提供准确的时长测量和基于关键词的推断作为占位符。
 
 ## 安装
 

@@ -49,8 +49,10 @@ Các node tạo nhạc AI đa ngôn ngữ cho ComfyUI dựa trên [ACE-Step](htt
 | **Conditioning** | Kết hợp tham số thành đối tượng Conditioning |
 | **Generator (from Cond)** | Tạo từ đối tượng Conditioning |
 | **Load LoRA** | Tải adapter LoRA đã fine-tune |
-| **Understand** | Trích xuất metadata từ audio hiện có |
-| **Create Sample** | Tạo tham số từ truy vấn ngôn ngữ tự nhiên |
+| **Understand** | Do thoi luong audio (caption/BPM/key la placeholder*) |
+| **Create Sample** | Tao tham so qua phuong phap heuristic tu khoa* |
+
+> \* Phan tich audio va tao tham so bang AI can phien ban ACE-Step trong tuong lai. Hien tai cung cap do thoi luong chinh xac va suy luan dua tren tu khoa lam placeholder.
 
 ## Cài đặt
 

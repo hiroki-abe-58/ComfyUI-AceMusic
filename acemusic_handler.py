@@ -273,12 +273,17 @@ class AceMusicHandler:
         
         manual_seeds = None if seed < 0 else [seed]
         
-        # Use audio2audio task with ref_audio_strength = 1 - cover_strength
+        # Use audio2audio with ref_audio_strength = 1 - cover_strength
+        # Higher cover_strength -> lower ref_audio_strength -> more change
         ref_audio_strength = 1.0 - cover_strength
+        
+        # Calculate duration from source audio (audio_duration <= 0 causes random duration)
+        src_waveform, src_sr = load_audio_sf(src_audio_path)
+        src_duration = src_waveform.shape[-1] / src_sr
         
         with tempfile.TemporaryDirectory() as temp_dir:
             results = model.pipeline(
-                audio_duration=-1,  # Infer from input
+                audio_duration=src_duration,
                 prompt=caption,
                 lyrics=lyrics if lyrics else "",
                 infer_step=inference_steps,
@@ -298,7 +303,7 @@ class AceMusicHandler:
                 guidance_scale_lyric=0.0,
                 save_path=temp_dir,
                 batch_size=1,
-                task="audio2audio",
+                task="text2music",
                 audio2audio_enable=True,
                 ref_audio_strength=ref_audio_strength,
                 ref_audio_input=src_audio_path,
@@ -339,9 +344,13 @@ class AceMusicHandler:
         
         manual_seeds = None if seed < 0 else [seed]
         
+        # Get source audio duration for audio_duration parameter
+        src_waveform, src_sr = load_audio_sf(src_audio_path)
+        src_duration = src_waveform.shape[-1] / src_sr
+        
         with tempfile.TemporaryDirectory() as temp_dir:
             results = model.pipeline(
-                audio_duration=-1,
+                audio_duration=src_duration,
                 prompt=caption,
                 lyrics="",
                 infer_step=inference_steps,
@@ -363,8 +372,8 @@ class AceMusicHandler:
                 batch_size=1,
                 task="repaint",
                 retake_variance=retake_variance,
-                repaint_start=start_time,
-                repaint_end=end_time,
+                repaint_start=int(start_time),
+                repaint_end=int(end_time),
                 src_audio_path=src_audio_path,
             )
             
@@ -393,7 +402,11 @@ class AceMusicHandler:
         retake_variance: float = 0.5,
     ) -> Tuple[torch.Tensor, int]:
         """
-        Extend audio at the beginning or end.
+        Extend audio at the beginning or end using repaint on extended regions.
+        
+        ACE-Step "extend" task repaints outside the original audio boundaries.
+        - extend_right: repaint region starts at original end
+        - extend_left: repaint region is at the beginning (0 to extend_left)
         
         Returns:
             Tuple of (audio_tensor, sample_rate)
@@ -407,13 +420,32 @@ class AceMusicHandler:
         original_waveform, original_sr = load_audio_sf(src_audio_path)
         original_duration = original_waveform.shape[-1] / original_sr
         
-        # Calculate repaint region for extension
-        repaint_start = -extend_left if extend_left > 0 else 0
-        repaint_end = original_duration + extend_right if extend_right > 0 else original_duration
+        # Calculate total target duration and repaint region
+        # For extend right: keep original, generate new content after it
+        # For extend left: generate new content before original
+        total_duration = original_duration + extend_left + extend_right
+        
+        # The repaint region is where NEW content will be generated
+        # ACE-Step "extend" task uses src_audio_path as reference and
+        # generates new content in the repaint region
+        if extend_right > 0 and extend_left == 0:
+            # Extend right only: repaint from original end to new end
+            repaint_start = int(original_duration)
+            repaint_end = int(total_duration)
+        elif extend_left > 0 and extend_right == 0:
+            # Extend left only: repaint from 0 to extend_left
+            repaint_start = 0
+            repaint_end = int(extend_left)
+        else:
+            # Both directions: repaint both regions
+            # ACE-Step doesn't support two separate repaint regions,
+            # so we extend right first (most common use case)
+            repaint_start = int(original_duration)
+            repaint_end = int(total_duration)
         
         with tempfile.TemporaryDirectory() as temp_dir:
             results = model.pipeline(
-                audio_duration=-1,
+                audio_duration=total_duration,
                 prompt=caption,
                 lyrics=lyrics if lyrics else "",
                 infer_step=inference_steps,
@@ -534,6 +566,16 @@ class AceMusicHandler:
         """
         Create a variation of existing audio.
         
+        Uses task="repaint" with full audio range (0 to duration) to create
+        a variation. ACE-Step's "retake" task does not accept src_audio_path
+        (assertion error), so we use "repaint" which supports src_audio_path
+        and achieves the same effect when repaint_start=0 and
+        repaint_end=audio_duration.
+        
+        The retake_variance parameter controls how different the variation is:
+        - 0.0: Nearly identical to original
+        - 1.0: Completely different (same structure, different details)
+        
         Returns:
             Tuple of (audio_tensor, sample_rate)
         """
@@ -542,9 +584,19 @@ class AceMusicHandler:
         
         manual_seeds = None if seed < 0 else [seed]
         
+        # Get source audio duration
+        src_waveform, src_sr = load_audio_sf(src_audio_path)
+        src_duration = src_waveform.shape[-1] / src_sr
+        
+        # Use "repaint" task with full range instead of "retake" task.
+        # ACE-Step internally: task="retake" sets repaint_start=0,
+        # repaint_end=audio_duration, but does NOT allow src_audio_path
+        # (assertion: task must be in "repaint","edit","extend").
+        # Using "repaint" with the same range achieves identical behavior
+        # while properly loading source audio latents.
         with tempfile.TemporaryDirectory() as temp_dir:
             results = model.pipeline(
-                audio_duration=-1,
+                audio_duration=src_duration,
                 prompt=caption,
                 lyrics=lyrics if lyrics else "",
                 infer_step=inference_steps,
@@ -564,8 +616,10 @@ class AceMusicHandler:
                 guidance_scale_lyric=0.0,
                 save_path=temp_dir,
                 batch_size=1,
-                task="retake",
+                task="repaint",
                 retake_variance=retake_variance,
+                repaint_start=0,
+                repaint_end=int(src_duration),
                 src_audio_path=src_audio_path,
             )
             
@@ -588,7 +642,11 @@ class AceMusicHandler:
     ) -> Dict[str, Any]:
         """
         Analyze audio to extract metadata.
-        Uses the LM model to understand the audio content.
+        
+        Note: ACE-Step 1.0 does not include an audio understanding API.
+        This method returns the audio duration (accurately measured) and
+        placeholder values for other fields. Full audio analysis will be
+        available when ACE-Step adds understand_music() support.
         
         Returns:
             Dictionary with caption, lyrics, bpm, keyscale, duration, language
@@ -596,11 +654,11 @@ class AceMusicHandler:
         if not ACESTEP_AVAILABLE:
             raise ImportError("ACE-Step is not installed")
         
-        # Load audio to get duration
+        # Load audio to get duration (this is always accurate)
         waveform, sample_rate = load_audio_sf(audio_path)
         duration = waveform.shape[-1] / sample_rate
         
-        # Try to use understand_music API if available
+        # Try to use understand_music API if available (future ACE-Step versions)
         try:
             if hasattr(model.pipeline, 'understand_music'):
                 result = model.pipeline.understand_music(audio_path)
@@ -615,7 +673,10 @@ class AceMusicHandler:
         except Exception:
             pass
         
-        # Fallback: return basic info
+        # Fallback: return measured duration with placeholder metadata
+        print("[AceMusicUnderstand] Note: Audio analysis returns duration only. "
+              "Caption, lyrics, BPM, and key are placeholders. "
+              "Full analysis requires a future ACE-Step version with understand_music() API.")
         return {
             "caption": "Audio track",
             "lyrics": "",
@@ -634,8 +695,12 @@ class AceMusicHandler:
         duration: float = 30.0,
     ) -> Dict[str, Any]:
         """
-        Generate complete music parameters from a natural language query.
-        Uses the LM model to create caption, lyrics, and metadata.
+        Generate music parameters from a natural language query.
+        
+        Note: ACE-Step 1.0 does not include a create_sample() API.
+        This method uses keyword-based heuristics to infer BPM and key
+        from the query text. Full AI-powered parameter generation will be
+        available when ACE-Step adds create_sample() support.
         
         Returns:
             Dictionary with caption, lyrics, bpm, keyscale, duration, language, instrumental
@@ -643,7 +708,7 @@ class AceMusicHandler:
         if not ACESTEP_AVAILABLE:
             raise ImportError("ACE-Step is not installed")
         
-        # Try to use create_sample API if available
+        # Try to use create_sample API if available (future ACE-Step versions)
         try:
             if hasattr(model.pipeline, 'create_sample'):
                 result = model.pipeline.create_sample(
@@ -663,24 +728,42 @@ class AceMusicHandler:
         except Exception:
             pass
         
-        # Fallback: generate based on query
-        # Infer some basic metadata from the query
+        # Keyword-based heuristic inference
+        print("[AceMusicCreateSample] Using keyword-based inference (no AI). "
+              "Full AI parameter generation requires a future ACE-Step version.")
+        
         bpm = 120  # Default BPM
         keyscale = "C Major"
         
-        # Simple keyword-based inference
         query_lower = query.lower()
-        if any(word in query_lower for word in ["fast", "energetic", "dance", "upbeat"]):
-            bpm = 140
-        elif any(word in query_lower for word in ["slow", "ballad", "calm", "peaceful"]):
-            bpm = 80
-        elif any(word in query_lower for word in ["rock", "punk"]):
-            bpm = 130
         
-        if any(word in query_lower for word in ["sad", "melancholic", "dark"]):
+        # BPM inference from genre/mood keywords
+        if any(word in query_lower for word in ["fast", "energetic", "dance", "upbeat", "edm", "techno", "drum and bass"]):
+            bpm = 140
+        elif any(word in query_lower for word in ["slow", "ballad", "calm", "peaceful", "ambient", "lullaby"]):
+            bpm = 80
+        elif any(word in query_lower for word in ["rock", "punk", "metal"]):
+            bpm = 130
+        elif any(word in query_lower for word in ["hip hop", "rap", "trap"]):
+            bpm = 90
+        elif any(word in query_lower for word in ["jazz", "swing"]):
+            bpm = 110
+        elif any(word in query_lower for word in ["reggae", "ska"]):
+            bpm = 95
+        elif any(word in query_lower for word in ["waltz"]):
+            bpm = 100
+        
+        # Key inference from mood keywords
+        if any(word in query_lower for word in ["sad", "melancholic", "dark", "dramatic", "minor"]):
             keyscale = "A Minor"
-        elif any(word in query_lower for word in ["happy", "cheerful", "bright"]):
+        elif any(word in query_lower for word in ["happy", "cheerful", "bright", "uplifting", "major"]):
             keyscale = "C Major"
+        elif any(word in query_lower for word in ["epic", "powerful", "heroic"]):
+            keyscale = "D Major"
+        elif any(word in query_lower for word in ["mysterious", "eerie", "suspense"]):
+            keyscale = "E Minor"
+        elif any(word in query_lower for word in ["romantic", "love", "warm"]):
+            keyscale = "F Major"
         
         # Generate lyrics placeholder if not instrumental
         lyrics = "[Instrumental]" if instrumental else f"[Verse]\n{query}\n\n[Chorus]\n{query}"

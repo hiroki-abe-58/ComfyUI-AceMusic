@@ -877,9 +877,10 @@ class AceMusicLoadLora:
 
 class AceMusicUnderstand:
     """
-    Analyze audio to extract metadata using LM model.
-    Returns caption, lyrics, BPM, key signature, and duration.
-    Requires LM model to be initialized.
+    Analyze audio to extract metadata.
+    Returns accurate duration measurement.
+    Note: Caption, lyrics, BPM, and key are placeholder values in ACE-Step 1.0.
+    Full AI-powered analysis will be available in future ACE-Step versions.
     """
     
     @classmethod
@@ -927,9 +928,9 @@ class AceMusicUnderstand:
 
 class AceMusicCreateSample:
     """
-    Generate complete music parameters from a natural language query.
-    Uses LM model to create caption, lyrics, BPM, key signature, and suggested duration.
-    Requires LM model to be initialized.
+    Generate music parameters from a natural language query.
+    Uses keyword-based heuristics to infer BPM and key from the query text.
+    Note: Full AI-powered parameter generation will be available in future ACE-Step versions.
     """
     
     @classmethod
@@ -1069,8 +1070,8 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "AceMusicConditioning": "AceMusic Conditioning",
     "AceMusicGeneratorFromCond": "AceMusic Generator (from Conditioning)",
     "AceMusicLoadLora": "AceMusic Load LoRA",
-    "AceMusicUnderstand": "AceMusic Understand (Audio Analysis)",
-    "AceMusicCreateSample": "AceMusic Create Sample (Query to Params)",
+    "AceMusicUnderstand": "AceMusic Understand (Duration + Placeholders)",
+    "AceMusicCreateSample": "AceMusic Create Sample (Keyword Heuristic)",
     "AceMusicLyricsInput": "AceMusic Lyrics Input",
     "AceMusicCaptionInput": "AceMusic Caption/Style Input",
 }

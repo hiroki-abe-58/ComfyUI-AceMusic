@@ -5,8 +5,9 @@ torch>=2.0.0
 torchaudio
 soundfile
 numpy
+scipy
 
-# ACE-Step 1.5 (install separately):
+# ACE-Step (install separately):
 # Option 1: Install from GitHub
 # pip install git+https://github.com/ace-step/ACE-Step.git
 

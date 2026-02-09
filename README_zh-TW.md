@@ -49,8 +49,10 @@
 | **Conditioning** | 將參數組合為 Conditioning 物件 |
 | **Generator (from Cond)** | 從 Conditioning 物件生成 |
 | **Load LoRA** | 載入微調的 LoRA 適配器 |
-| **Understand** | 從現有音訊擷取中繼資料 |
-| **Create Sample** | 從自然語言查詢生成參數 |
+| **Understand** | 測量音訊時長（標題/BPM/調號為佔位符*） |
+| **Create Sample** | 通過關鍵詞啟發式生成參數* |
+
+> \* AI 驅動的音訊分析和參數生成需要未來的 ACE-Step 版本。當前實現提供準確的時長測量和基於關鍵詞的推斷作為佔位符。
 
 ## 安裝
 

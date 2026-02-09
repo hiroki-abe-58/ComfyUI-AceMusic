@@ -49,8 +49,10 @@
 | **Conditioning** | 매개변수를 Conditioning 객체로 결합 |
 | **Generator (from Cond)** | Conditioning 객체에서 생성 |
 | **Load LoRA** | 파인튜닝된 LoRA 어댑터 로드 |
-| **Understand** | 기존 오디오에서 메타데이터 추출 |
-| **Create Sample** | 자연어 쿼리에서 매개변수 생성 |
+| **Understand** | 오디오 길이 측정 (캡션/BPM/키는 플레이스홀더*) |
+| **Create Sample** | 키워드 휴리스틱으로 파라미터 생성* |
+
+> \* AI 기반 오디오 분석 및 파라미터 생성은 향후 ACE-Step 버전이 필요합니다. 현재 구현은 정확한 길이 측정과 키워드 기반 추론을 플레이스홀더로 제공합니다.
 
 ## 설치
 
