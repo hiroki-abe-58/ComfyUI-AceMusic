@@ -9,13 +9,14 @@ import torch
 from dataclasses import dataclass, field
 from typing import Optional, List, Dict, Any, Tuple
 import tempfile
-import soundfile as sf
 import numpy as np
+
+from .utils import import_soundfile
 
 
 def load_audio_sf(path):
     """Load audio using soundfile instead of torchaudio to avoid torchcodec dependency"""
-    data, sample_rate = sf.read(path)
+    data, sample_rate = import_soundfile().read(path)
     # soundfile returns (samples, channels), convert to (channels, samples)
     if data.ndim == 1:
         data = data[np.newaxis, :]  # mono: (samples,) -> (1, samples)
