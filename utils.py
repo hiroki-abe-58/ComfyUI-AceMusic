@@ -5,11 +5,28 @@ Handles audio type conversions, file I/O, and common operations.
 
 import os
 import torch
-import soundfile as sf
 import tempfile
 import numpy as np
 from typing import Tuple, Dict, Any, Optional
 from scipy import signal
+
+
+def import_soundfile():
+    """
+    Import soundfile on first use.
+
+    ComfyUI does not install soundfile, so importing it at module level made the
+    whole node pack fail to load when requirements.txt had not been installed.
+    """
+    try:
+        import soundfile
+    except ImportError as e:
+        raise ImportError(
+            "ComfyUI-AceMusic needs the soundfile package. Install the requirements with "
+            "the Python that runs ComfyUI: python -m pip install -r "
+            "custom_nodes/ComfyUI-AceMusic/requirements.txt"
+        ) from e
+    return soundfile
 
 
 def resample_waveform(waveform: torch.Tensor, orig_sr: int, target_sr: int) -> torch.Tensor:
@@ -73,7 +90,7 @@ def audio_to_tempfile(audio: Dict[str, Any], format: str = "wav") -> str:
     audio_np = waveform.numpy()
     if audio_np.ndim == 2:
         audio_np = audio_np.T
-    sf.write(path, audio_np, sample_rate)
+    import_soundfile().write(path, audio_np, sample_rate)
     
     return path
 
@@ -122,7 +139,7 @@ def load_audio_file(
         ComfyUI AUDIO dict
     """
     # Load using soundfile
-    data, sample_rate = sf.read(filepath)
+    data, sample_rate = import_soundfile().read(filepath)
     # Convert from (samples, channels) to (channels, samples)
     if data.ndim == 1:
         waveform = torch.from_numpy(data[np.newaxis, :]).float()
